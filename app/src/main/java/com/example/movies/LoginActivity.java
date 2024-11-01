@@ -34,16 +34,15 @@ private Button loginBtn;
        loginBtn.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
-               if(userEdt.getText().toString().isEmpty() || passEdt.getText().toString().isEmpty()){
-                   Toast.makeText(LoginActivity.this, "Please fill in your details", Toast.LENGTH_SHORT).show();
 
-                }
-               else if(userEdt.getText().toString().equals("test") && passEdt.toString().equals("test")){
+                if(userEdt.getText().toString().trim().contains("test") && passEdt.getText().toString().trim().contains("test")){
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
                }
+                else if(userEdt.getText().toString().isEmpty() || passEdt.getText().toString().isEmpty()){
+                    Toast.makeText(LoginActivity.this, "Please fill in your details", Toast.LENGTH_SHORT).show();
+                }
                else{
                    Toast.makeText(LoginActivity.this, "Your details are incorrect", Toast.LENGTH_SHORT).show();
-
                }
            }
        });
