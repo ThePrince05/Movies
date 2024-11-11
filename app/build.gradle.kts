@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.movies"
-        minSdk = 25
+        minSdk = 31
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -41,5 +41,7 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     implementation("androidx.viewpager2:viewpager2:1.0.0")
-    implementation("com.github.bumtech.glide:glide:4.12.0")
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+//  implementation("com.andriod.volley:volley:1.2.1")
+
 }

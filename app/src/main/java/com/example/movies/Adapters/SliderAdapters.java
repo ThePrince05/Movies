@@ -2,6 +2,7 @@ package com.example.movies.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.RoundedCorner;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -10,6 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.movies.Domian.SliderItems;
 import com.example.movies.R;
 
@@ -37,12 +42,15 @@ public class SliderAdapters extends RecyclerView.Adapter<SliderAdapters.SliderVi
 
     @Override
     public void onBindViewHolder(@NonNull SliderAdapters.SliderViewHolder holder, int position) {
-
+        holder.SetImage(sliderItems.get(position));
+        if(position == sliderItems.size() -2){
+            viewPager2.post(runnable);
+        }
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return sliderItems.size();
     }
 
     public class SliderViewHolder extends RecyclerView.ViewHolder{
@@ -51,8 +59,19 @@ public class SliderAdapters extends RecyclerView.Adapter<SliderAdapters.SliderVi
             super(itemView);
             imageView = itemView.findViewById(R.id.imageSlide);
         }
-        void setImageView(SliderItems sliderItems){
-            Request
-        };
+       void SetImage(SliderItems sliderItems){
+           RequestOptions requestOptions = new RequestOptions();
+           requestOptions = requestOptions.transforms(new CenterCrop(), new RoundedCorners(60));
+
+           Glide.with(context).load(sliderItems.getImage()).apply(requestOptions).into(imageView);
+       }
     }
+
+    private Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            sliderItems.addAll(sliderItems);
+            notifyDataSetChanged();
+        }
+    };
 }
