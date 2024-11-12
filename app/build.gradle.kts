@@ -42,6 +42,6 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
     implementation("androidx.viewpager2:viewpager2:1.0.0")
     implementation("com.github.bumptech.glide:glide:4.16.0")
-//  implementation("com.andriod.volley:volley:1.2.1")
-
+    implementation("com.android.volley:volley:1.2.1")
+    implementation("com.google.code.gson:gson:2.11.0")
 }
