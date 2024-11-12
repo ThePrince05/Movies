@@ -31,7 +31,8 @@ public class FilmListAdapter extends RecyclerView.Adapter<FilmListAdapter.ViewHo
         ImageView pic;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-           // titleTxt = itemView.findViewById(R.id.)
+           //git log
+            // titleTxt = itemView.findViewById(R.id.)
         }
     }
 }
