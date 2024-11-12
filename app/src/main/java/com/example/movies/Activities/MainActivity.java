@@ -101,7 +101,11 @@ public class MainActivity extends AppCompatActivity {
         recyclerViewBestMovies.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL, false));
         recyclerviewUpcoming = findViewById(R.id.view2);
         recyclerviewUpcoming.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        
+        recyclerViewCategory = findViewById(R.id.view3);
+        recyclerViewCategory.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        loading1 = findViewById(R.id.progressBar1);
+        loading2 = findViewById(R.id.progressBar2);
+        loading3 = findViewById(R.id.progressBar3);
     }
 
 
