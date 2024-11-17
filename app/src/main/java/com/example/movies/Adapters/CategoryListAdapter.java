@@ -16,14 +16,18 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.movies.Activities.DetailActivity;
+import com.example.movies.Domain.Genres;
+import com.example.movies.Domain.GenresItem;
 import com.example.movies.Domain.ListFilm;
 import com.example.movies.R;
 
+import java.util.ArrayList;
+
 public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapter.ViewHolder> {
-    ListFilm items;
+    ArrayList<GenresItem> items;
     Context context;
 
-    public CategoryListAdapter(ListFilm items) {
+    public CategoryListAdapter(ArrayList<GenresItem> items) {
         this.items = items;
     }
 
@@ -37,24 +41,17 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
 
     @Override
     public void onBindViewHolder(@NonNull CategoryListAdapter.ViewHolder holder, int position) {
-        holder.titleTxt.setText(items.getData().get(position).getTitle());
-        RequestOptions requestOptions = new RequestOptions();
-        requestOptions = requestOptions.transform(new CenterCrop(), new RoundedCorners(30));
+        holder.titleTxt.setText(items.get(position).getName());
 
-        Glide.with(context).load(items.getData().get(position).getPoster())
-                .apply(requestOptions)
-                .into(holder.pic);
 
         holder.itemView.setOnClickListener(view -> {
-            Intent intent = new Intent(holder.itemView.getContext(), DetailActivity.class);
-            intent.putExtra("id", items.getData().get(position).getId());
-            context.startActivity(intent);
+
         });
     }
 
     @Override
     public int getItemCount() {
-        return items.getData().size();
+        return items.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
