@@ -44,8 +44,9 @@ public class MainActivity extends AppCompatActivity {
 
         initView();
         banners();
-        sendRequestBestMovies();
         sendRequestUpcoming();
+        sendRequestBestMovies();
+
     }
 
     private void sendRequestBestMovies() {
