@@ -18,6 +18,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.movies.Adapters.CategoryListAdapter;
 import com.example.movies.Adapters.FilmListAdapter;
 import com.example.movies.Adapters.SliderAdapters;
 import com.example.movies.Domain.Genres;
@@ -32,7 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private RecyclerView.Adapter adapterBestMovies, adapterUpComing, AdapterCategory;
+    private RecyclerView.Adapter adapterBestMovies, adapterUpComing, adapterCategory;
     private RecyclerView recyclerViewBestMovies, recyclerviewUpcoming, recyclerViewCategory;
     private RequestQueue mRequestQueue;
     private StringRequest mStringRequest, mStringRequest2, mStringRequest3;
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         banners();
         sendRequestBestMovies();
         sendRequestUpcoming();
-
+        sendRequestCategory();
 
     }
 
@@ -90,12 +91,12 @@ public class MainActivity extends AppCompatActivity {
     private void sendRequestCategory() {
         mRequestQueue = Volley.newRequestQueue(this);
         loading2.setVisibility(View.VISIBLE);
-        mStringRequest2 = new StringRequest(Request.Method.GET, "https://moviesapi.ir/api/v1/movies?page=2", response -> {
+        mStringRequest2 = new StringRequest(Request.Method.GET, "https://moviesapi.ir/api/v1/genres", response -> {
             Gson gson = new Gson();
             loading2.setVisibility(View.GONE);
             ArrayList<GenresItem> catList = gson.fromJson(response, new TypeToken<ArrayList<GenresItem>>(){}.getType());
-            adapterUpComing = new FilmListAdapter(items);
-            recyclerviewUpcoming.setAdapter(adapterUpComing);
+            adapterCategory = new CategoryListAdapter(catList);
+            recyclerViewCategory.setAdapter(adapterCategory);
         }, error -> {
             loading2.setVisibility(View.GONE);
             Log.i("Error Report", "onErrorResponse: " + error.toString());
