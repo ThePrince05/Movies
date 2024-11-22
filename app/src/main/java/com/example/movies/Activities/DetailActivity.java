@@ -21,7 +21,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
+import com.example.movies.Adapters.ActorsListAdapter;
+import com.example.movies.Adapters.CategoryEachFilmListAdapter;
 import com.example.movies.Adapters.FilmListAdapter;
+import com.example.movies.Domain.FilmItem;
 import com.example.movies.R;
 import com.google.gson.Gson;
 
@@ -29,7 +33,7 @@ public class DetailActivity extends AppCompatActivity {
     private RequestQueue mRequestQueue;
     private StringRequest mStringRequest;
     private ProgressBar progressBar;
-    private TextView titleTxt, movieRateTxt, movieTimeTxt, movieSummaryInfo, movieActorInfo;
+    private TextView titleTxt, movieRateTxt, movieTimeTxt, movieSummaryInfo, movieActorsInfo;
     private int idFilm;
     private ImageView pic2, backImg;
     private RecyclerView.Adapter adapterActorList, adapterCategory;
@@ -51,21 +55,33 @@ public class DetailActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
         scrollView.setVisibility(View.GONE);
 
-        mStringRequest = new StringRequest(Request.Method.GET, "https://moviesapi.ir/api/v1/movies/" + idFilm, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Gson gson = new Gson();
-                progressBar.setVisibility(View.GONE);
-                scrollView.setVisibility(View.VISIBLE);
+        mStringRequest = new StringRequest(Request.Method.GET, "https://moviesapi.ir/api/v1/movies/" + idFilm, response -> {
+            Gson gson = new Gson();
+            progressBar.setVisibility(View.GONE);
+            scrollView.setVisibility(View.VISIBLE);
 
+            FilmItem item = gson.fromJson(response, FilmItem.class);
+
+            Glide.with(DetailActivity.this)
+                    .load(item.getPoster())
+                    .into(pic2);
+
+            titleTxt.setText(item.getTitle());
+            movieRateTxt.setText(item.getImdbRating());
+            movieTimeTxt.setText(item.getRuntime());
+            movieSummaryInfo.setText(item.getPlot());
+            movieActorsInfo.setText(item.getActors());
+            if(item.getImages() != null){
+                adapterActorList = new ActorsListAdapter(item.getImages());
+                recyclerViewActors.setAdapter(adapterActorList);
 
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
+            if(item.getGenres() != null){
+                adapterCategory = new CategoryEachFilmListAdapter(item.getGenres());
+                recyclerViewCategory.setAdapter(adapterCategory);
             }
-        });
+
+        }, error -> progressBar.setVisibility(View.GONE));
         mRequestQueue.add(mStringRequest);
     }
 
@@ -77,7 +93,7 @@ public class DetailActivity extends AppCompatActivity {
        movieRateTxt = findViewById(R.id.movieStar);
        movieTimeTxt = findViewById(R.id.movieTime);
        movieSummaryInfo = findViewById(R.id.movieSummary);
-       movieActorInfo = findViewById(R.id.movieActorInfo);
+       movieActorsInfo = findViewById(R.id.movieActorInfo);
        backImg = findViewById(R.id.backImg);
        recyclerViewCategory = findViewById(R.id.genreView);
        recyclerViewActors = findViewById(R.id.imagesRecycler);
