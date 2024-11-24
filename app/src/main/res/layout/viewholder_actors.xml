@@ -5,16 +5,17 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/itemImages"
+
+        app:shapeAppearanceOverlay="@style/roundedImageView"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:scaleType="centerCrop"
-        style="@style/roundedImageView"
         android:layout_margin="5dp"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        />
+        tools:srcCompat="@tools:sample/avatars" />
 </androidx.constraintlayout.widget.ConstraintLayout>
