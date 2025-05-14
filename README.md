@@ -21,7 +21,7 @@ A modern Android mobile application built with Java that retrieves movie informa
 4.	Build and run the app, or generate an APK via:
 Build > Build Bundle(s) / APK(s) > Build APK(s)
 
-✅ Minimum SDK: minSdk = 31 (Android 12)  
+✅ Minimum SDK: 31 (Android 12)  
 ✅ Target SDK: 34 (Android 14)		
 
 ## 🧪 Usage
